@@ -21,6 +21,7 @@ def btnClick(button):
         checkWinner()
     else:
         messagebox.showerror("TicTacToe", "Šeit kāds jau ir ieklikšķinājis")
+        return
 
 def checkWinner():
     global winner
@@ -30,13 +31,65 @@ def checkWinner():
         btn7["text"] == "X" and btn8["text"] == "X" and btn9["text"] == "X"):
         winner = True
         messagebox.showinfo("TicTacToe", "Spēlētājs X ir uzvarētājs")
+        def disableButtons(): #spēle beidzas, pogas izslēgtas
+            btn1.config(state=DISABLED)
+            btn2.config(state=DISABLED)
+            btn3.config(state=DISABLED)
+            btn4.config(state=DISABLED)
+            btn5.config(state=DISABLED)
+            btn6.config(state=DISABLED)
+            btn7.config(state=DISABLED)
+            btn8.config(state=DISABLED)
+            btn9.config(state=DISABLED)
+            
+            return 0
+        winner=True
+        disableButtons()
+
     elif (btn1["text"] == "O" and btn2["text"] == "O" and btn3["text"] == "O" or 
           btn4["text"] == "O" and btn5["text"] == "O" and btn6["text"] == "O" or 
           btn7["text"] == "O" and btn8["text"] == "O" and btn9["text"] == "O"):
         winner = True
+        disableButtons()
         messagebox.showinfo("TicTacToe", "Spēlētājs O ir uzvarētājs")
+        def disableButtons(): #spēle beidzas, pogas izslēgtas
+            btn1.config(state=DISABLED)
+            btn2.config(state=DISABLED)
+            btn3.config(state=DISABLED)
+            btn4.config(state=DISABLED)
+            btn5.config(state=DISABLED)
+            btn6.config(state=DISABLED)
+            btn7.config(state=DISABLED)
+            btn8.config(state=DISABLED)
+            btn9.config(state=DISABLED)
+            
+            return 0
+        winner = True
+        disableButtons()    
+        
     elif count == 9 and winner == False:
         messagebox.showinfo("TicTacToe", "Neizšķirts")
+        def disableButtons(): #spēle beidzas, pogas izslēgtas
+            btn1.config(state=DISABLED)
+            btn2.config(state=DISABLED)
+            btn3.config(state=DISABLED)
+            btn4.config(state=DISABLED)
+            btn5.config(state=DISABLED)
+            btn6.config(state=DISABLED)
+            btn7.config(state=DISABLED)
+            btn8.config(state=DISABLED)
+            winner=True
+            disableButtons()
+            
+            galvenaIzvelne=Menu(manslogs)#izveido galveno izvēlni
+            manslogs.config(menu=galvenaIzvelne)#pievieno galvenajam logam
+            opcijas=Menu(galvenaIzvelne,tearoff=False)#mazā izvēlne
+            galvenaIzvelne.add_cascade(label="Opcijas",menu=opcijas) #lejupkrītošais saraksts
+            opcijas.add_command(label="Jauna spēle",command=reset)
+            opcijas.add_command(label="Iziet",command=manslogs.quit)
+
+
+
 
 btn1 = Button(manslogs, text=" ", width=6, height=3, font=("Helvetica", 24), command=lambda: btnClick(btn1))
 btn2 = Button(manslogs, text=" ", width=6, height=3, font=("Helvetica", 24), command=lambda: btnClick(btn2))
@@ -57,5 +110,7 @@ btn6.grid(row=1, column=2)
 btn7.grid(row=2, column=0)
 btn8.grid(row=2, column=1)
 btn9.grid(row=2, column=2)
+
+
 
 manslogs.mainloop()
